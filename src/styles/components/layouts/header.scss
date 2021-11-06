@@ -1,0 +1,63 @@
+.header {
+  position: relative;
+  background-color: $primaryDark;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 3.2rem;
+  height: 58px;
+  &__left-block {
+    display: flex;
+    &--line {
+      background-color: $secondaryDark;
+      height: 34px;
+      margin-top: 12px;
+      width: 2px;
+    }
+    &--logo {
+      width: 150px;
+      z-index: 9;
+      svg {
+        position: absolute;
+        display: inline-block;
+        top: 20%;
+        left: 2rem;
+      }
+      img {
+        position: absolute;
+        display: inline-block;
+      }
+    }
+    &__user {
+      margin-left: 1.6rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      &--icon {
+        border: 1px solid $secondaryDark;
+        border-radius: 50%;
+      }
+      &--info {
+        @include text($secondaryGray, 1.6rem);
+      }
+    }
+  }
+  &__right-block {
+    display: flex;
+    align-items: center;
+    gap: 2.4rem;
+    &--language {
+      img {
+      }
+    }
+    &__logout {
+      &--info {
+        @include text($primaryWhite, 1.6rem);
+        cursor: pointer;
+      }
+    }
+  }
+  &--right-icon {
+    left: 75%;
+    position: absolute;
+  }
+}

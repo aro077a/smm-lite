@@ -1,0 +1,15 @@
+@mixin typography($color, $font-size) {
+  color: $color;
+  font-size: $font-size;
+}
+
+@mixin text($color, $font-size) {
+  color: $color;
+  font-size: $font-size;
+}
+
+@mixin button($color, $font-size, $bgColor) {
+  color: $color;
+  font-size: $font-size;
+  background-color: $bgColor;
+}

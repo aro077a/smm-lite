@@ -1,0 +1,22 @@
+%buttonProps {
+  min-height: 52px;
+  outline: none;
+  border: 0;
+  border-radius: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button-disabled {
+  @include button($primaryWhite, 1.6rem, $primaryPurpleLight);
+  @extend %buttonProps;
+}
+.button-loading {
+  @include button($primaryWhite, 1.6rem, $primaryPurpleLight);
+  @extend %buttonProps;
+}
+
+.button {
+  @include button($primaryWhite, 1.6rem, $primaryBlue);
+  @extend %buttonProps;
+}

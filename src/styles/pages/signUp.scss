@@ -1,0 +1,59 @@
+.signUp {
+  text-align: center;
+  &__title-block {
+    position: relative;
+    padding: 0.6rem 1.2rem 1.2rem;
+    &--star {
+      position: absolute;
+      top: 0;
+      left: 17%;
+    }
+    &--line {
+      position: absolute;
+      bottom: 0;
+      left: 17%;
+    }
+    &--mark {
+      position: absolute;
+      top: 0;
+      right: 10%;
+    }
+    &--title {
+      @include typography($primaryDark, 4.2rem);
+    }
+  }
+  &__description {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &--text {
+      @include text($primaryGray, 1.6rem);
+      margin: 3rem 0;
+    }
+    &--info {
+      @include text($primaryGray, 1.6rem);
+    }
+    &--link {
+      @include text($primaryBlue, 1.6rem);
+    }
+  }
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    &--icon {
+      position: absolute;
+      z-index: 9;
+      right: 1.5rem;
+      top: 1.5rem;
+      cursor: pointer;
+    }
+  }
+  &__button {
+    border-radius: 0.8rem;
+    padding: 1.6rem 13.1rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 20px;
+  }
+}

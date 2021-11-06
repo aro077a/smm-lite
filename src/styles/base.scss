@@ -1,0 +1,12 @@
+//utils styles import
+
+@import "./utils/variables.scss";
+@import "./utils/mixins.scss";
+
+//pages styles import
+
+@import "./pages/signUp.scss";
+@import "./pages/signIn.scss";
+
+//components styles import
+@import "./components/components.scss";
