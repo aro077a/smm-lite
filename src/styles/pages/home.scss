@@ -20,4 +20,12 @@
       @include button($primaryWhite, 1.6rem, $primaryBlue);
     }
   }
+  .popup {
+    &__content {
+      max-width: 105.2rem;
+      width: unset;
+      top: 6rem;
+      padding: 3.2rem;
+    }
+  }
 }

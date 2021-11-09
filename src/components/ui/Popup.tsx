@@ -1,7 +1,7 @@
 import { IPopupProps } from "../models";
 import closeIcon from "../../assets/icons/close-icon.svg";
 
-const Popup = ({ children, togglePopupClose }: IPopupProps) => {
+const Popup = ({ children, togglePopupClose, isOpen }: IPopupProps) => {
   return (
     <div className="popup" onClick={togglePopupClose}>
       <div

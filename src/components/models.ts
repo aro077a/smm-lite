@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ChangeEvent, ReactNode } from "react";
 
 export interface ITitleProps {
   title?: string;
@@ -39,7 +39,17 @@ export interface IconProps {
 export interface IPopupProps {
   children?: ReactNode;
   className?: string;
+  isOpen?: boolean;
   togglePopupClose?: () => void;
   togglePopupBlur?: () => void;
   togglePopupOpen?: () => void;
+}
+
+export type imageType = {
+  file?: File | any;
+};
+
+export interface IUploadImageProps {
+  handleImageSelect?: (e: ChangeEvent<HTMLInputElement> | any) => void;
+  image?: imageType | any;
 }
