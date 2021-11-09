@@ -5,7 +5,6 @@ import Button from "../../components/ui/Button";
 import Input from "../../components/ui/Input";
 import Text from "../../components/ui/Text";
 import Title from "../../components/ui/Title";
-import * as Yup from "yup";
 import usePasswordActive from "../../hooks/usePasswordActive";
 import EyeHideIcon from "../../components/icon-components/EyeIconHide";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
@@ -15,6 +14,9 @@ import signinLine from "../../assets/icons/signin-line.svg";
 import signinBottomLine from "../../assets/icons/signin-bottom-line.svg";
 import { RootState } from "../../redux/store";
 import { SpinnerCircular } from "spinners-react";
+import AuthLayout from "../../components/layouts/AuthLayout";
+import { IAuthForm } from "./models";
+import { SignInSchema } from "../../utils/validationSchema";
 
 const SignIn = () => {
   const { isPassActive, toggleActive } = usePasswordActive();
@@ -28,56 +30,47 @@ const SignIn = () => {
     shallowEqual
   );
 
-  const handleSubmitForm = (values: any) => {
+  const handleSubmitForm = (values: IAuthForm) => {
     dispatch(login(values));
   };
 
-  const SignInSchema = Yup.object().shape({
-    username: Yup.string()
-      .email("Неверный адрес электронной почты")
-      .required("Обязательное поле"),
-    password: Yup.string()
-      .required("Пожалуйста введите ваш пароль")
-      .min(6, "Слишком короткий,не меньше 4 символов"),
-  });
-
   return (
-    <div className="signIn">
-      <div className="signIn__title-block">
-        <img
-          src={signinArrow}
-          alt="signin-arrow"
-          className="signIn__title-block--arrow"
-        />
-        <img
-          src={signinLine}
-          alt="signin-line"
-          className="signIn__title-block--line"
-        />
-        <img
-          src={signinBottomLine}
-          alt="signIn__title-bottom-line"
-          className="signIn__title-block--bottom-line"
-        />
-        <Title title="Войти" className="signIn__title-block--title" />
-      </div>
-      <Text
-        text="Автоматизируйте управление социальными сетями, 
+    <AuthLayout>
+      <div className="signIn">
+        <div className="signIn__title-block">
+          <img
+            src={signinArrow}
+            alt="signin-arrow"
+            className="signIn__title-block--arrow"
+          />
+          <img
+            src={signinLine}
+            alt="signin-line"
+            className="signIn__title-block--line"
+          />
+          <img
+            src={signinBottomLine}
+            alt="signIn__title-bottom-line"
+            className="signIn__title-block--bottom-line"
+          />
+          <Title title="Войти" className="signIn__title-block--title" />
+        </div>
+        <Text
+          text="Автоматизируйте управление социальными сетями, 
               чтобы освободить время для более важных дел."
-        className="signIn__description--text"
-      />
-      <Formik
-        initialValues={{
-          username: "",
-          password: "",
-        }}
-        validationSchema={SignInSchema}
-        onSubmit={(values) => {
-          handleSubmitForm(values);
-        }}
-      >
-        {({ errors, touched, handleChange, values, dirty, isValid }) => (
-          <>
+          className="signIn__description--text"
+        />
+        <Formik
+          initialValues={{
+            username: "",
+            password: "",
+          }}
+          validationSchema={SignInSchema}
+          onSubmit={(values) => {
+            handleSubmitForm(values);
+          }}
+        >
+          {({ errors, handleChange, values, dirty, isValid }) => (
             <Form className="signIn__form">
               <Input
                 htmlFor="Email"
@@ -100,21 +93,15 @@ const SignIn = () => {
                 icon={
                   isPassActive ? (
                     <EyeHideIcon
-                      className="signIn__form--icon"
+                      className="password-icon"
                       onClick={toggleActive}
                     />
                   ) : (
-                    <EyeIcon
-                      className="signIn__form--icon"
-                      onClick={toggleActive}
-                    />
+                    <EyeIcon className="password-icon" onClick={toggleActive} />
                   )
                 }
                 onChange={handleChange}
-                errorsMessage={
-                  (errors.password && errors.password) ||
-                  signInError[0]?.message
-                }
+                errorsMessage={errors.password || signInError[0]?.message}
               />
 
               <div className="signIn__description">
@@ -155,10 +142,10 @@ const SignIn = () => {
                 <label htmlFor="remember">Запомнить меня</label>
               </div>
             </Form>
-          </>
-        )}
-      </Formik>
-    </div>
+          )}
+        </Formik>
+      </div>
+    </AuthLayout>
   );
 };
 

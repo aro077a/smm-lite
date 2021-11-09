@@ -5,7 +5,6 @@ import Button from "../../components/ui/Button";
 import Input from "../../components/ui/Input";
 import Text from "../../components/ui/Text";
 import Title from "../../components/ui/Title";
-import * as Yup from "yup";
 import usePasswordActive from "../../hooks/usePasswordActive";
 import EyeHideIcon from "../../components/icon-components/EyeIconHide";
 import { register } from "../../redux/features/authSlice";
@@ -15,6 +14,9 @@ import { SpinnerCircular } from "spinners-react";
 import star from "../../assets/icons/star.svg";
 import line from "../../assets/icons/line.svg";
 import signupMark from "../../assets/icons/signup-mark.svg";
+import AuthLayout from "../../components/layouts/AuthLayout";
+import { IAuthForm } from "./models";
+import { SignupSchema } from "../../utils/validationSchema";
 
 const SignUp = () => {
   const { isPassActive, toggleActive } = usePasswordActive();
@@ -27,48 +29,39 @@ const SignUp = () => {
   );
   const dispatch = useDispatch();
 
-  const handleSubmitForm = (values: any) => {
+  const handleSubmitForm = (values: IAuthForm) => {
     dispatch(register(values));
   };
 
-  const SignupSchema = Yup.object().shape({
-    email: Yup.string()
-      .email("Неверный адрес электронной почты")
-      .required("Обязательное поле"),
-    password: Yup.string()
-      .required("Пожалуйста введите ваш пароль")
-      .min(6, "Слишком короткий,не меньше 6 символов"),
-  });
-
   return (
-    <div className="signUp">
-      <div className="signUp__title-block">
-        <img src={star} alt="star" className="signUp__title-block--star" />
-        <img src={line} alt="line" className="signUp__title-block--line" />
-        <img
-          src={signupMark}
-          alt="signup-mark"
-          className="signUp__title-block--mark"
-        />
-        <Title title="Регистрация" className="signUp__title-block--title" />
-      </div>
-      <Text
-        text="Автоматизируйте управление социальными сетями, 
+    <AuthLayout>
+      <div className="signUp">
+        <div className="signUp__title-block">
+          <img src={star} alt="star" className="signUp__title-block--star" />
+          <img src={line} alt="line" className="signUp__title-block--line" />
+          <img
+            src={signupMark}
+            alt="signup-mark"
+            className="signUp__title-block--mark"
+          />
+          <Title title="Регистрация" className="signUp__title-block--title" />
+        </div>
+        <Text
+          text="Автоматизируйте управление социальными сетями, 
               чтобы освободить время для более важных дел."
-        className="signUp__description--text"
-      />
-      <Formik
-        initialValues={{
-          email: "",
-          password: "",
-        }}
-        validationSchema={SignupSchema}
-        onSubmit={(values) => {
-          handleSubmitForm(values);
-        }}
-      >
-        {({ errors, touched, handleChange, values, dirty, isValid }) => (
-          <>
+          className="signUp__description--text"
+        />
+        <Formik
+          initialValues={{
+            email: "",
+            password: "",
+          }}
+          validationSchema={SignupSchema}
+          onSubmit={(values) => {
+            handleSubmitForm(values);
+          }}
+        >
+          {({ errors, handleChange, values, dirty, isValid }) => (
             <Form className="signUp__form">
               <Input
                 htmlFor="Email"
@@ -134,10 +127,10 @@ const SignUp = () => {
                 buttonType={!(dirty && isValid)}
               />
             </Form>
-          </>
-        )}
-      </Formik>
-    </div>
+          )}
+        </Formik>
+      </div>
+    </AuthLayout>
   );
 };
 

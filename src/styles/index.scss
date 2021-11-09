@@ -40,3 +40,11 @@ h6 {
 html {
   font-size: 62.5%;
 }
+
+.password-icon {
+  position: absolute;
+  z-index: 9;
+  right: 1.5rem;
+  top: 1.5rem;
+  cursor: pointer;
+}

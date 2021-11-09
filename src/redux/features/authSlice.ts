@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IAuthState, NewUser } from "./models";
+import { IAuthState, NewUser, TokenType } from "./models";
 import { logoutUser, signIn, signUp } from "../../api/api";
 import history from "../../utils/history";
 
@@ -12,8 +12,6 @@ export type AuthError = {
   error: any;
 };
 
-type Ttoken = any;
-
 // Create actions with createAsyncThunk
 export const register = createAsyncThunk<
   any,
@@ -24,8 +22,6 @@ export const register = createAsyncThunk<
     const response = await signUp(newUser);
     if (response.status === 200) {
       history.push("/signin");
-    } else {
-      console.log(response, "@@@@@@@@@@@@@@@@@@@@@@@@@@@");
     }
   } catch (error: any) {
     if (!error.response) {
@@ -42,9 +38,10 @@ export const login = createAsyncThunk<any, NewUser, { rejectValue: AuthError }>(
     try {
       const response = await signIn(user);
       if (response.status === 200) {
+        localStorage.setItem("token", response.data.token);
         history.push("/");
+        return response.data.token;
       }
-      return localStorage.setItem("token", response.data.token);
     } catch (error: any) {
       if (!error.response) {
         throw error;
@@ -55,22 +52,21 @@ export const login = createAsyncThunk<any, NewUser, { rejectValue: AuthError }>(
   }
 );
 
-export const logout = createAsyncThunk<any, Ttoken, { rejectValue: AuthError }>(
-  "auth/logout",
-  async (token) => {
-    try {
-      const response = await logoutUser(token);
-      if (response.status === 200) {
-        localStorage.removeItem("token");
-        history.push("/signin");
-      }
-    } catch (error: any) {
-      if (!error.response) {
-        throw error;
-      }
+export const logout = createAsyncThunk<
+  any,
+  TokenType,
+  { rejectValue: AuthError }
+>("auth/logout", async (token) => {
+  try {
+    await logoutUser();
+    localStorage.removeItem("token");
+    history.push("/signin");
+  } catch (error: any) {
+    if (!error.response) {
+      throw error;
     }
   }
-);
+});
 
 // Then, handle actions in reducers:
 export const authSlice = createSlice({
@@ -92,7 +88,7 @@ export const authSlice = createSlice({
     builder.addCase(login.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(login.fulfilled, (state) => {
+    builder.addCase(login.fulfilled, (state, { payload }) => {
       state.loading = false;
     });
     builder.addCase(login.rejected, (state, { payload }) => {

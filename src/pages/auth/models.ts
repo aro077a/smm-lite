@@ -1,3 +1,5 @@
-export interface x {
-  c: string;
+export interface IAuthForm {
+  email?: string;
+  username?: string;
+  password?: string;
 }

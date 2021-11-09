@@ -38,6 +38,8 @@
       }
       &--info {
         @include text($secondaryGray, 1.6rem);
+        cursor: pointer;
+        text-decoration: underline;
       }
     }
   }
@@ -59,5 +61,7 @@
   &--right-icon {
     left: 75%;
     position: absolute;
+  }
+  &__popup {
   }
 }

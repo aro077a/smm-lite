@@ -6,12 +6,24 @@ import rusFlag from "../../assets/icons/rus_flag.svg";
 import Text from "../ui/Text";
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux/features/authSlice";
+import ToolTip from "../ui/ToolTip";
+import Popup from "../ui/Popup";
+import usePopup from "../../hooks/usePopup";
+import InstagramAuthContainer from "../instagram-auth/InstagramAuthContainer";
+import { useEffect } from "react";
+import { getUser } from "../../redux/features/getAccountSlice";
 
 const Header = () => {
+  const { isOpen, togglePopupClose, togglePopupOpen } = usePopup();
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
+
   const handleLogout = () => {
-    dispatch(logout(localStorage.getItem("token")));
+    const token = localStorage.getItem("token") as any;
+    dispatch(logout(token));
   };
   return (
     <header className="header">
@@ -25,10 +37,18 @@ const Header = () => {
           <div className="header__left-block__user--icon">
             <img src={instaIcon} alt="insta-icon" />
           </div>
-          <Text
-            text="Подключить instagram"
-            className="header__left-block__user--info"
-          />
+          <ToolTip
+            theme="dark"
+            position="bottom"
+            title="Подключите аккаунт instagram,
+                    чтобы пользоваться сервисом"
+          >
+            <Text
+              text="Подключить instagram"
+              className="header__left-block__user--info"
+              onClick={togglePopupOpen}
+            />
+          </ToolTip>
         </div>
       </div>
       <div className="header__right-block">
@@ -44,6 +64,11 @@ const Header = () => {
         </div>
       </div>
       <img src={headerRight} alt="header-left" className="header--right-icon" />
+      {isOpen && (
+        <Popup togglePopupClose={togglePopupClose}>
+          <InstagramAuthContainer />
+        </Popup>
+      )}
     </header>
   );
 };

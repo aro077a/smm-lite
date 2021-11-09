@@ -36,3 +36,10 @@ export interface IconProps {
   className?: string;
   fill?: string;
 }
+export interface IPopupProps {
+  children?: ReactNode;
+  className?: string;
+  togglePopupClose?: () => void;
+  togglePopupBlur?: () => void;
+  togglePopupOpen?: () => void;
+}

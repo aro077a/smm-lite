@@ -1,0 +1,36 @@
+.insta-auth {
+  text-align: center;
+  &__title-block {
+    h1 {
+      @include typography($primaryBlack, 3.2rem);
+    }
+  }
+  &__content {
+    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5rem;
+    &__block {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid $secondaryGray;
+      border-radius: 0.8rem;
+      padding: 2.4rem;
+      cursor: pointer;
+      &:hover {
+        background-color: $primaryYellowLight;
+      }
+      div {
+        display: flex;
+        align-items: center;
+        p {
+          margin-left: 1.2rem;
+          color: $secondaryDarker;
+          font-size: 1.8rem;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}

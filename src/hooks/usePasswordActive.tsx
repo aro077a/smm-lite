@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const usePasswordActive = () => {
-  const [isPassActive, setIsPassActive] = useState(false);
+  const [isPassActive, setIsPassActive] = useState<boolean>(false);
 
   const toggleActive = () => {
     setIsPassActive(!isPassActive);
