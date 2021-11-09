@@ -83,14 +83,11 @@ const SignUp = () => {
                 icon={
                   isPassActive ? (
                     <EyeHideIcon
-                      className="signUp__form--icon"
+                      className="password-icon"
                       onClick={toggleActive}
                     />
                   ) : (
-                    <EyeIcon
-                      className="signUp__form--icon"
-                      onClick={toggleActive}
-                    />
+                    <EyeIcon className="password-icon" onClick={toggleActive} />
                   )
                 }
                 onChange={handleChange}
