@@ -14,7 +14,7 @@ const Home = () => {
           text="У вас пока нет запланированных постов. Но когда вы создадите свой первый пост, он появятся на этом экране."
           className="home__title-block--description"
         />
-        <Button buttonText="Запланировать пост" className="-post" />
+        <Button buttonText="Запланировать пост" />
       </div>
     </div>
   );

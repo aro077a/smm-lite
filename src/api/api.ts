@@ -14,6 +14,16 @@ export const config = () => {
   return localStorage.getItem("token");
 };
 
+// const headers = () => {
+//   return {
+//     headers: {
+//       "Content-Type": "application/json",
+//       "Access-Control-Allow-Origin": "*",
+//       "Access-Control-Allow-Credentials": true,
+//     },
+//   };
+// };
+
 // User auth
 
 export const signUp = async (body: any) => {

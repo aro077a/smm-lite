@@ -12,11 +12,7 @@ const Button = ({
     <button
       type={type}
       className={
-        buttonType
-          ? "button-disabled"
-          : loading
-          ? "button-loading"
-          : `button${className}`
+        buttonType ? "button-disabled" : loading ? "button-loading" : "button"
       }
       onClick={onClick}
       disabled={buttonType}

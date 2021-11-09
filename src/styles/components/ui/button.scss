@@ -1,9 +1,11 @@
 %buttonProps {
   min-height: 52px;
   outline: none;
-  border: 0;
+  border: none;
   border-radius: 0.8rem;
   font-weight: 600;
+  font-size: 1.6rem;
+  line-height: 20px;
   cursor: pointer;
 }
 
@@ -17,6 +19,5 @@
 }
 
 .button {
-  @include button($primaryWhite, 1.6rem, $primaryBlue);
   @extend %buttonProps;
 }

@@ -43,12 +43,10 @@
     flex-direction: column;
     gap: 2.5rem;
   }
-  &__button {
-    border-radius: 0.8rem;
+  .button {
     padding: 1.6rem 13.1rem;
-    font-size: 1.6rem;
-    font-weight: 600;
-    line-height: 20px;
+    border: 0;
+    @include button($primaryWhite, 1.6rem, $primaryBlue);
   }
   &__remember {
     display: flex;

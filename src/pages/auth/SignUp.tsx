@@ -118,7 +118,6 @@ const SignUp = () => {
                     "Зарегистрироваться"
                   )
                 }
-                className="signUp__button"
                 type="submit"
                 loading={loading}
                 buttonType={!(dirty && isValid)}

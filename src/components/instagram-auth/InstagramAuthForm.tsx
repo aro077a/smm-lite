@@ -90,12 +90,11 @@ const InstagramAuthForm = () => {
                     "Подключить"
                   )
                 }
-                className="-connect"
                 type="submit"
                 loading={loading}
                 buttonType={!(dirty && isValid)}
               />
-              <Button buttonText="Отмена" className="-cancel" />
+              <Button buttonText="Отмена" />
             </div>
           </Form>
         )}
