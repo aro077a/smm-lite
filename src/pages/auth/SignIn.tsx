@@ -128,7 +128,6 @@ const SignIn = () => {
                     "Войти"
                   )
                 }
-                // className="-signIn"
                 type="submit"
                 loading={loading}
                 buttonType={!(dirty && isValid)}

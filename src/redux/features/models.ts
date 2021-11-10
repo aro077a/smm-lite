@@ -9,10 +9,14 @@ export interface IInstagramAuthState {
   instaAuthError: string | any;
 }
 export interface IUSer {
-  user: null;
+  account: TUserAccount[];
   loading: boolean;
 }
 
+export type TUserAccount = {
+  id?: string | number;
+  username?: string;
+};
 type TUser = {
   email?: string;
   password?: string;

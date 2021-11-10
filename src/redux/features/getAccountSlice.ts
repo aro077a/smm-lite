@@ -3,7 +3,7 @@ import { IUSer } from "./models";
 import { getUserAccount } from "../../api/api";
 
 const initialState: IUSer = {
-  user: null,
+  account: [],
   loading: false,
 };
 export type AuthError = {
@@ -16,8 +16,7 @@ export const getUser = createAsyncThunk("user/getUser", async () => {
   try {
     const response = await getUserAccount();
     if (response.status === 200) {
-      console.log(response.data, "@@@@@@@@@@@@@@");
-      // return response.data;
+      return response.data;
     }
   } catch (error: any) {
     if (!error.response) {
@@ -37,7 +36,7 @@ export const getAccountSlice = createSlice({
     });
     builder.addCase(getUser.fulfilled, (state, { payload }) => {
       state.loading = false;
-      //   state.user = payload;
+      state.account = payload;
     });
     builder.addCase(getUser.rejected, (state, { payload }) => {
       state.loading = false;

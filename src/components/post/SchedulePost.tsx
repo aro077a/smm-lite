@@ -3,6 +3,8 @@ import Title from "../ui/Title";
 import { ChangeEvent, useState } from "react";
 import UploadImage from "./UploadImage";
 import ScheduleText from "./ScheduleText";
+import Button from "../ui/Button";
+import editIcon from "../../assets/icons/edit-icon.svg";
 
 const SchedulePost = () => {
   const [scheduleData, setScheduleData] = useState<any>({
@@ -17,6 +19,10 @@ const SchedulePost = () => {
     setScheduleData({ ...scheduleData, image });
   };
 
+  const handleTextChange = (e: any) => {
+    console.log(e.target.value.length);
+  };
+
   const { image } = scheduleData;
   return (
     <div className="schedule">
@@ -25,12 +31,35 @@ const SchedulePost = () => {
         <Text text="Выберите фотографию, добавьте текстовое сопровождение и укажите время. Пост будет опубликован автоматически :)" />
       </div>
       <div className="schedule__content">
-        {/*  <AddText/> */}
         <div className="schedule__content--upload">
           <UploadImage handleImageSelect={handleImageSelect} image={image} />
         </div>
         <div className="schedule__content--text">
-          <ScheduleText />
+          <ScheduleText handleTextChange={handleTextChange} />
+        </div>
+      </div>
+      <div className="schedule__date">
+        <div className="schedule__date__content">
+          <div className="schedule__date__content--notify">
+            <Text text="Уведомить о публикации по email" />
+            <input
+              type="checkbox"
+              // id="remember"
+              // className="signIn__remember--checkbox"
+            />
+          </div>
+          <Text
+            text="Будет опубликовано"
+            className="schedule__date__content--info"
+          />
+          <div className="schedule__date__content--time ">
+            <Text text="15 октября в 14:00" />
+            <img src={editIcon} alt="edit" />
+          </div>
+        </div>
+        <div className="schedule__date__buttons">
+          <Button buttonText="Запланировать" />
+          <Button buttonText="Отменить" />
         </div>
       </div>
     </div>

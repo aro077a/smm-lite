@@ -1,0 +1,85 @@
+%textProps {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: $primaryDark;
+}
+
+.schedule {
+  &__title-block {
+    h1 {
+      @include typography($primaryBlack, 3.2rem);
+    }
+    p {
+      @include text($primaryGray, 1.6rem);
+      margin-top: 0.8rem;
+      max-width: 67rem;
+    }
+  }
+  &__content {
+    display: flex;
+    gap: 1.6rem;
+    margin-top: 2.4rem;
+
+    &--upload {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      border: 1px solid $secondaryGray;
+      width: 440px;
+      height: 440px;
+      border-radius: 0.8rem;
+    }
+    &--text {
+      width: 532px;
+      height: 440px;
+      border-radius: 0.8rem;
+    }
+  }
+  &__date {
+    display: flex;
+    margin-top: 26px;
+    justify-content: space-between;
+    width: 100%;
+    &__content {
+      &--notify {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        p {
+          @extend %textProps;
+        }
+      }
+      &--info {
+        @extend %textProps;
+        margin-top: 1.6rem;
+      }
+      &--time {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        margin-top: 1.2rem;
+        p {
+          font-size: 1.6rem;
+          color: $primaryDark;
+        }
+        img {
+          cursor: pointer;
+        }
+      }
+    }
+    &__buttons {
+      margin-top: 4rem;
+      .button {
+        &:first-child {
+          padding: 1.6rem 3.9rem;
+        }
+        &:nth-child(2) {
+          padding: 1.6rem 5.9rem;
+          margin-left: 2.4rem;
+          @include button($primaryWhite, 1.6rem, $primaryGray);
+        }
+      }
+    }
+  }
+}

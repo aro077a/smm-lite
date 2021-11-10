@@ -4,7 +4,7 @@ import headerRight from "../../assets/icons/header-right.svg";
 import instaIcon from "../../assets/images/instagram.png";
 import rusFlag from "../../assets/icons/rus_flag.svg";
 import Text from "../ui/Text";
-import { useDispatch } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/features/authSlice";
 import ToolTip from "../ui/ToolTip";
 import Popup from "../ui/Popup";
@@ -12,9 +12,19 @@ import usePopup from "../../hooks/usePopup";
 import InstagramAuthContainer from "../instagram-auth/InstagramAuthContainer";
 import { useEffect } from "react";
 import { getUser } from "../../redux/features/getAccountSlice";
+import { RootState } from "../../redux/store";
+import { TUserAccount } from "../../redux/features/models";
 
 const Header = () => {
   const { isOpen, togglePopupClose, togglePopupOpen } = usePopup();
+  const { account } = useSelector(
+    ({ user }: RootState) => ({
+      account: user.account,
+    }),
+    shallowEqual
+  );
+  console.log(account, ";;;;;;;;;;");
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -37,18 +47,30 @@ const Header = () => {
           <div className="header__left-block__user--icon">
             <img src={instaIcon} alt="insta-icon" />
           </div>
-          <ToolTip
-            theme="dark"
-            position="bottom"
-            title="Подключите аккаунт instagram,
+          {account ? (
+            account.map((user: TUserAccount) => {
+              return (
+                <Text
+                  key={user.id}
+                  text={user.username}
+                  className="header__left-block__user--name"
+                />
+              );
+            })
+          ) : (
+            <ToolTip
+              theme="dark"
+              position="bottom"
+              title="Подключите аккаунт instagram,
                     чтобы пользоваться сервисом"
-          >
-            <Text
-              text="Подключить instagram"
-              className="header__left-block__user--info"
-              onClick={togglePopupOpen}
-            />
-          </ToolTip>
+            >
+              <Text
+                text="Подключить instagram"
+                className="header__left-block__user--info"
+                onClick={togglePopupOpen}
+              />
+            </ToolTip>
+          )}
         </div>
       </div>
       <div className="header__right-block">

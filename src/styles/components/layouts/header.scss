@@ -41,6 +41,9 @@
         cursor: pointer;
         text-decoration: underline;
       }
+      &--name {
+        @include text($secondaryGray, 2rem);
+      }
     }
   }
   &__right-block {
