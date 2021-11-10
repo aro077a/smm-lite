@@ -5,16 +5,16 @@ import { IUploadImageProps } from "../models";
 const UploadImage = ({ handleImageSelect, image }: IUploadImageProps) => {
   const [iconActive, setIconActive] = useState<boolean>(false);
 
-  const handleMouseOver = (e: any, image: IUploadImageProps) => {
-    if (image) {
-      setIconActive(true);
-    }
-  };
-  const handleMouseMove = (e: any, image: IUploadImageProps) => {
-    if (image) {
-      setIconActive(false);
-    }
-  };
+  // const handleMouseOver = (e: any, image: IUploadImageProps) => {
+  //   if (image) {
+  //     setIconActive(true);
+  //   }
+  // };
+  // const handleMouseMove = (e: any, image: IUploadImageProps) => {
+  //   if (image) {
+  //     setIconActive(false);
+  //   }
+  // };
 
   return (
     <div className="upload">
