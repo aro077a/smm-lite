@@ -16,9 +16,6 @@ function App() {
           <ProtectedRoute exact path="/" component={Home} />
         </HomeLayout>
       </Switch>
-      {/* <HomeLayout>
-        <Home />
-      </HomeLayout> */}
     </div>
   );
 }

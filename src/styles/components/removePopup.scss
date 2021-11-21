@@ -1,0 +1,32 @@
+.remove-popup {
+  &__title {
+    margin-top: 1.5rem;
+    text-align: center;
+    h1 {
+      @include typography($primaryDark, 3.2rem);
+    }
+    p {
+      margin-top: 1.6rem;
+      @include text($primaryGray, 1.6rem);
+    }
+  }
+  &__buttons {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    .button {
+      width: 19.7rem;
+      &:first-child {
+        @include button($primaryWhite, 1.6rem, $primaryRed);
+      }
+      &:nth-child(2) {
+        @include button($primaryWhite, 1.6rem, $primaryGray);
+      }
+    }
+    .button-loading {
+      padding: 0 8.9rem;
+      max-height: 5.2rem;
+      @include button($primaryWhite, 1.6rem, $secondaryGray);
+    }
+  }
+}

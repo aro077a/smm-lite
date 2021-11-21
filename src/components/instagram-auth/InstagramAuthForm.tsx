@@ -18,7 +18,7 @@ const InstagramAuthForm = () => {
 
   const dispatch = useDispatch();
 
-  const { instaAuthError, loading } = useSelector(
+  const { loading } = useSelector(
     ({ instagramAuth }: RootState) => ({
       instaAuthError: instagramAuth.instaAuthError,
       loading: instagramAuth.loading,
@@ -73,7 +73,7 @@ const InstagramAuthForm = () => {
                 )
               }
               onChange={handleChange}
-              errorsMessage={errors.password || instaAuthError[0]?.message}
+              // errorsMessage={errors.password || instaAuthError[0]?.message}
             />
             <div className="instaAuthForm__form-block__buttons">
               <Button

@@ -1,10 +1,13 @@
 import uploadIcon from "../../assets/icons/img-upload.svg";
 import { IUploadImageProps } from "../models";
 
-const UploadImage = ({ handleImageSelect, image }: IUploadImageProps) => {
+const UploadImage = ({
+  handleImageSelect,
+  currentImage,
+}: IUploadImageProps) => {
   return (
     <div className="upload">
-      {image ? (
+      {currentImage ? (
         <>
           <div className="upload-active">
             <img
@@ -16,12 +19,12 @@ const UploadImage = ({ handleImageSelect, image }: IUploadImageProps) => {
             <input
               id="edit"
               type="file"
-              accept="image/*"
+              accept="image/jpeg"
               onChange={handleImageSelect}
             />
           </div>
           <img
-            src={URL.createObjectURL(image)}
+            src={URL.createObjectURL(currentImage)}
             alt="upload"
             className="upload__image"
           />

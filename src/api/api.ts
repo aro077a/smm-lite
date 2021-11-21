@@ -4,6 +4,7 @@ import {
   GETACCOUNT,
   INSTAGRAMLOGIN,
   LOGOUT,
+  POSTSCHEDULE,
   SIGNIN,
   SIGNUP,
 } from "../utils/constants";
@@ -13,16 +14,6 @@ const BASEAPI = process.env.REACT_APP_BASEURL;
 export const config = () => {
   return localStorage.getItem("token");
 };
-
-// const headers = () => {
-//   return {
-//     headers: {
-//       "Content-Type": "application/json",
-//       "Access-Control-Allow-Origin": "*",
-//       "Access-Control-Allow-Credentials": true,
-//     },
-//   };
-// };
 
 // User auth
 
@@ -51,4 +42,32 @@ export const instaLogin = async (body: any) => {
 
 export const getUserAccount = async () => {
   return await axios.get(`${BASEAPI}${GETACCOUNT}?token=${config()}`);
+};
+
+//create schedule post
+
+export const postInstagramSchedule = async (body: any) => {
+  return await axios.post(`${BASEAPI}${POSTSCHEDULE}?token=${config()}`, body);
+};
+
+//publish schedule post
+export const publishInstagramSchedule = async (id: number, body: any) => {
+  return await axios.post(
+    `${BASEAPI}${POSTSCHEDULE}/${id}?token=${config()}`,
+    body
+  );
+};
+
+//get schedule post
+
+export const getInstagramSchedule = async () => {
+  return await axios.get(`${BASEAPI}${POSTSCHEDULE}?token=${config()}`);
+};
+
+//delete schedule post
+
+export const deleteInstagramSchedule = async (id: number) => {
+  return await axios.delete(
+    `${BASEAPI}${POSTSCHEDULE}/${id}?token=${config()}`
+  );
 };

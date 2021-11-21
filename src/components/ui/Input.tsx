@@ -10,6 +10,8 @@ const Input = ({
   name,
   errorsMessage,
   className = "",
+  placeholder,
+  maxLength,
   onChange,
 }: IInputProps) => {
   const [fieldActive, setFieldActive] = useState<boolean>(false);
@@ -34,6 +36,7 @@ const Input = ({
         onChange={onChange}
         onBlur={(e) => handleBlur(e.target.value)}
         onFocus={handleFocus}
+        placeholder={placeholder}
         className={
           fieldActive
             ? "field-container__input-active"

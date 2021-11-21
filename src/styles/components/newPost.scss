@@ -1,0 +1,163 @@
+%textProps {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: $primaryDark;
+}
+
+.new-post {
+  &__title-block {
+    h1 {
+      @include typography($primaryBlack, 3.2rem);
+    }
+    p {
+      @include text($primaryGray, 1.6rem);
+      margin-top: 0.8rem;
+      max-width: 67rem;
+    }
+  }
+  &__content {
+    display: flex;
+    gap: 1.6rem;
+    margin-top: 2.4rem;
+
+    &--upload {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      width: 440px;
+      height: 440px;
+    }
+    &--text {
+      width: 532px;
+      height: 440px;
+      border-radius: 0.8rem;
+    }
+  }
+  &--errors {
+    margin-top: 1rem;
+    p {
+      @include text($primaryRed, 1.4rem);
+    }
+  }
+  &__date {
+    display: flex;
+    margin-top: 26px;
+    justify-content: space-between;
+    width: 100%;
+    &__content {
+      &--notify {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        p {
+          @extend %textProps;
+        }
+      }
+      &--info {
+        @extend %textProps;
+        margin-top: 1.6rem;
+      }
+      &--time {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        margin-top: 1.2rem;
+        p {
+          font-size: 1.6rem;
+          color: $primaryDark;
+        }
+        img {
+          cursor: pointer;
+        }
+      }
+      &__calendar {
+        h1 {
+          @include typography($primaryDark, 1.8rem);
+        }
+        .popup {
+          z-index: 9;
+          background-color: unset;
+          .popup__content {
+            top: 14%;
+            right: 32rem;
+            max-width: 36rem;
+            box-shadow: 0px 2px 8px rgba(40, 41, 61, 0.08),
+              0px 20px 32px rgba(96, 97, 112, 0.24);
+            &--close-icon {
+              display: none;
+            }
+            input {
+              width: 11rem !important;
+              border: 2px solid $primaryGray;
+              font-size: 1.6rem;
+              padding: 1.2rem;
+              color: $primaryGray;
+              border-radius: 0.8rem;
+              text-align: center;
+              margin-top: 2.4rem;
+            }
+            .react-calendar {
+              margin: 2.4rem 0;
+              border: none;
+              .react-calendar__tile--active {
+                border-radius: 50%;
+              }
+              .react-calendar__navigation__label__labelText,
+              .react-calendar__tile {
+                font-size: 1.6rem;
+              }
+              .react-calendar__navigation__arrow {
+                font-size: 2.4rem;
+              }
+              .react-calendar__month-view__weekdays__weekday {
+                font-size: 1.6rem;
+                color: $primaryGray;
+              }
+              .react-calendar__month-view__weekdays {
+                border-bottom: 1px solid $secondaryGray;
+                abbr {
+                  text-decoration: none;
+                }
+              }
+            }
+          }
+        }
+        &--buttons {
+          margin-top: 3.5rem;
+          .button {
+            &:first-child {
+              padding: 1.6rem 2rem;
+              @include button($primaryWhite, 1.6rem, $primaryBlue);
+            }
+            &:nth-child(2) {
+              padding: 1.6rem 3.2rem;
+              margin-left: 2.4rem;
+              @include button($primaryWhite, 1.6rem, $primaryGray);
+            }
+          }
+        }
+      }
+    }
+    &__buttons {
+      margin-top: 4rem;
+      display: flex;
+      align-items: center;
+      .button {
+        &:first-child {
+          padding: 1.6rem 3.9rem;
+          @include button($primaryWhite, 1.6rem, $primaryBlue);
+        }
+        &:nth-child(2) {
+          padding: 1.6rem 5.9rem;
+          margin-left: 2.4rem;
+          @include button($primaryWhite, 1.6rem, $primaryGray);
+        }
+      }
+      .button-loading {
+        padding: 0 8.9rem;
+        @include button($primaryWhite, 1.6rem, $secondaryGray);
+      }
+    }
+  }
+}

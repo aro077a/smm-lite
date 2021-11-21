@@ -17,13 +17,20 @@ import { TUserAccount } from "../../redux/features/models";
 
 const Header = () => {
   const { isOpen, togglePopupClose, togglePopupOpen } = usePopup();
+
   const { account } = useSelector(
     ({ user }: RootState) => ({
       account: user.account,
     }),
     shallowEqual
   );
-  console.log(account, ";;;;;;;;;;");
+
+  // const { account } = useSelector(
+  //   ({ user }: RootState) => ({
+  //     account: user.account,
+  //   }),
+  //   shallowEqual
+  // );
 
   const dispatch = useDispatch();
 
@@ -47,17 +54,8 @@ const Header = () => {
           <div className="header__left-block__user--icon">
             <img src={instaIcon} alt="insta-icon" />
           </div>
-          {account ? (
-            account.map((user: TUserAccount) => {
-              return (
-                <Text
-                  key={user.id}
-                  text={user.username}
-                  className="header__left-block__user--name"
-                />
-              );
-            })
-          ) : (
+
+          {account.length === 0 ? (
             <ToolTip
               theme="dark"
               position="bottom"
@@ -70,6 +68,16 @@ const Header = () => {
                 onClick={togglePopupOpen}
               />
             </ToolTip>
+          ) : (
+            account.map((user: TUserAccount) => {
+              return (
+                <Text
+                  key={user.id}
+                  text={user.username}
+                  className="header__left-block__user--name"
+                />
+              );
+            })
           )}
         </div>
       </div>

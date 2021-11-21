@@ -3,10 +3,11 @@ import { ChangeEvent, ReactNode } from "react";
 export interface ITitleProps {
   title?: string;
   className?: string;
+  onClick?: () => void;
 }
 
 export interface ITextProps {
-  text?: string;
+  text?: string | ReactNode;
   className?: string;
   onClick?: () => void;
 }
@@ -27,6 +28,8 @@ export interface IInputProps {
   value?: string;
   name?: string;
   className?: string;
+  placeholder?: string;
+  maxLength?: string | number;
   errorsMessage?: string | boolean | ReactNode;
   icon?: ReactNode;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -51,5 +54,28 @@ export type imageType = {
 
 export interface IUploadImageProps {
   handleImageSelect?: (e: ChangeEvent<HTMLInputElement> | any) => void;
-  image?: imageType | any;
+  currentImage?: imageType | any;
 }
+export interface IScheduledPostsProps {
+  scheduledPosts?: TSchedulePosts[];
+}
+
+export type TSchedulePosts = {
+  account?: string;
+  id?: number | any;
+  image?: string | File | any;
+  publish_at?: string;
+  status?: string;
+  text?: string;
+  loading?: boolean;
+  handleDeletePost?: any;
+  isDeletePopupOpen?: boolean;
+  deletePostPopupClose?: () => void;
+  handleSetId?: any;
+};
+export type IRemovePostPopupProps = {
+  deletePostPopupClose?: any;
+  handleDeletePost?: any;
+  loading?: boolean;
+  id?: number;
+};

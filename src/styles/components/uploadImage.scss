@@ -6,6 +6,8 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  border: 1px solid $secondaryGray;
+  border-radius: 0.8rem;
   background-color: $secondaryYellow;
   &:hover {
     .upload-active {
@@ -37,6 +39,7 @@
     height: 100%;
     z-index: 3;
     cursor: pointer;
+    border-radius: 0.8rem;
   }
   input {
     display: none;

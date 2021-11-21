@@ -1,11 +1,18 @@
-const ScheduleText = ({ handleTextChange }: any) => {
+import { MAX_COUNT } from "../../utils/constants";
+
+const ScheduleText = ({ handleTextChange, letterCount }: any) => {
   return (
     <div className="schedule-text">
       <textarea
         placeholder="Текст поста"
-        maxLength={2200}
+        maxLength={MAX_COUNT}
         onChange={handleTextChange}
       ></textarea>
+      {letterCount === MAX_COUNT && (
+        <div className="schedule-text__error">
+          Максимальная длина поста 2200 символов
+        </div>
+      )}
     </div>
   );
 };

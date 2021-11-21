@@ -1,0 +1,20 @@
+.schedule-posts {
+  &--tabs {
+    display: flex;
+    gap: 2.4rem;
+    margin: 3.2rem 0;
+    .tab-title {
+      @include typography($primaryDark, 3.2rem);
+      cursor: pointer;
+    }
+    .tab-active {
+      @include typography($secondaryGray, 3.2rem);
+      cursor: pointer;
+    }
+  }
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+  }
+}

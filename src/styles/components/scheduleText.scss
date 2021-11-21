@@ -6,9 +6,17 @@
     height: 439px;
     padding: 1.2rem;
     border: 0;
+    outline: 0;
+    font-size: 1.6rem;
     &::placeholder {
       font-size: 1.6rem;
       color: $primaryGray;
     }
+  }
+  &__error {
+    color: $primaryRedLight;
+    font-size: 1.3rem;
+    margin-top: 1rem;
+    padding-left: 1rem;
   }
 }
