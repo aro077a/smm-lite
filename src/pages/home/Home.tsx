@@ -60,7 +60,7 @@ const Home = () => {
             <Button
               buttonText="Запланировать пост"
               onClick={togglePopupOpen}
-              buttonType={account[0] && account[0].username ? false : true}
+              buttonType={account && account[0]?.username ? false : true}
             />
           </>
         )}

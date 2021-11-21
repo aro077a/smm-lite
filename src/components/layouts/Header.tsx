@@ -25,12 +25,12 @@ const Header = () => {
     shallowEqual
   );
 
-  // const { account } = useSelector(
-  //   ({ user }: RootState) => ({
-  //     account: user.account,
-  //   }),
-  //   shallowEqual
-  // );
+  const { success } = useSelector(
+    ({ instagramAuth }: RootState) => ({
+      success: instagramAuth.success,
+    }),
+    shallowEqual
+  );
 
   const dispatch = useDispatch();
 
@@ -55,7 +55,7 @@ const Header = () => {
             <img src={instaIcon} alt="insta-icon" />
           </div>
 
-          {account.length === 0 ? (
+          {account?.length === 0 ? (
             <ToolTip
               theme="dark"
               position="bottom"
@@ -69,7 +69,7 @@ const Header = () => {
               />
             </ToolTip>
           ) : (
-            account.map((user: TUserAccount) => {
+            account?.map((user: TUserAccount) => {
               return (
                 <Text
                   key={user.id}
@@ -94,7 +94,7 @@ const Header = () => {
         </div>
       </div>
       <img src={headerRight} alt="header-left" className="header--right-icon" />
-      {isOpen && (
+      {!success && isOpen && (
         <Popup togglePopupClose={togglePopupClose}>
           <InstagramAuthContainer />
         </Popup>

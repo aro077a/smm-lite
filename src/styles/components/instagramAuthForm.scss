@@ -31,6 +31,10 @@
         padding: 1.6rem 7rem;
         @include button($primaryWhite, 1.6rem, $secondaryGray);
       }
+      .button-loading {
+        padding: 1.4rem 8rem;
+        @include button($primaryWhite, 1.6rem, $secondaryGray);
+      }
     }
   }
 }

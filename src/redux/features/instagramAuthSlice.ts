@@ -1,3 +1,4 @@
+import { getUser } from "./getAccountSlice";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IInstagramAuthState, NewUser } from "./models";
 import { instaLogin } from "../../api/api";
@@ -21,6 +22,7 @@ export const instagramLogin = createAsyncThunk<
   try {
     const response = await instaLogin(user);
     if (response.status === 200) {
+      thunkAPI.dispatch(getUser());
       return response.data.result;
     }
   } catch (error: any) {
