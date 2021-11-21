@@ -25,7 +25,7 @@ const NewPost = ({ togglePopupClose }: any) => {
     togglePopupClose: closeDatePopup,
   }: any = usePopup();
 
-  const { loading, errors, scheduledSuccess } = useSelector(
+  const { loading, errors } = useSelector(
     ({ schedule }: RootState) => ({
       loading: schedule.loading,
       errors: schedule.errors,
@@ -75,10 +75,8 @@ const NewPost = ({ togglePopupClose }: any) => {
 
   const postCreatedSchedule = useCallback(() => {
     dispatch(postSchedule(scheduleData));
-    if (scheduledSuccess) {
-      togglePopupClose();
-    }
-  }, [dispatch, scheduleData, scheduledSuccess, togglePopupClose]);
+    togglePopupClose();
+  }, [dispatch, scheduleData, togglePopupClose]);
 
   const handleImageSelect = async (e: ChangeEvent<HTMLInputElement> | any) => {
     const image = e.target.files[0];
