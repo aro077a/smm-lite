@@ -13,7 +13,10 @@ import { format, parseISO } from "date-fns";
 import { ru } from "date-fns/locale";
 import RemovePostPopup from "./RemovePostPopup";
 import { useDispatch } from "react-redux";
-import { publishSchedule } from "../../redux/features/publishSchedule";
+import {
+  publishSchedule,
+  updateSchedule,
+} from "../../redux/features/publishSchedule";
 
 const Scheduled = ({
   account,
@@ -33,7 +36,7 @@ const Scheduled = ({
 
   const [editDate, setEditDate] = useState<any>({
     date: publish_at?.substr(0, publish_at.indexOf(" ")),
-    time: publish_at?.split(" ")[1],
+    time: publish_at?.split(" ")[1].slice(0, 5),
   });
   const [editedScheduleData, setEditedScheduleData] = useState<any>({
     publish_at: editDate,
@@ -42,35 +45,50 @@ const Scheduled = ({
   });
 
   const saveEditedDate = async () => {
-    setEditedScheduleData({
-      ...editedScheduleData,
-      publish_at: `${date} ${time}`,
-      // image: base64,
-      // image: {
-      //   name: image.name,
-      //   content: convertToBase64,
-      // },
-    });
-    // dispatch(postSchedule(editedScheduleData));
+    dispatch(updateSchedule(id, editedScheduleData));
     togglePopupClose();
   };
 
-  const handleDateChange = (date: any) => {
-    const formattedDate = format(date, "yyyy-MM-dd");
-
+  const handleDateChange = (selectedDate: any) => {
+    const formattedDate = format(selectedDate, "yyyy-MM-dd");
     setEditDate({ ...editDate, date: formattedDate });
+    setEditedScheduleData({
+      ...editedScheduleData,
+      publish_at: `${date} ${time}`,
+    });
   };
 
   const handleTimeChange = (e: ChangeEvent<HTMLInputElement>, time: string) => {
     setEditDate({ ...editDate, time });
+    setEditedScheduleData({
+      ...editedScheduleData,
+      publish_at: `${date} ${time}`,
+    });
   };
 
   const { date, time } = editDate;
 
   const parsedDate = parseISO(date);
 
+  //TODO: need to be changed to {ru} locale  correct month name
+
+  // let day = format(parseISO(date), "dd LLLL", {
+  //   locale: ru,
+  // }).split(" ")[0];
+
+  // let month = format(parseISO(date), "dd LLLL", {
+  //   locale: ru,
+  // }).split(" ")[1];
+
+  // if (month.slice(-1) === "ь") {
+  //   month = `${day} ${month.replace(/.$/, "я")}`;
+  // }
+
   const publishCreatedSchedule = () => {
-    setEditedScheduleData({ ...editedScheduleData, publish_at: new Date() });
+    setEditedScheduleData({
+      ...editedScheduleData,
+      publish_at: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
+    });
     dispatch(publishSchedule(id, editedScheduleData));
     togglePopupClose();
   };

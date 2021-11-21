@@ -27,12 +27,12 @@ const ScheduledPosts = ({ scheduledPosts }: IScheduledPostsProps) => {
 
   //when API changes will be ready
 
-  // const posted = scheduledPosts?.filter(
-  //   (post: TSchedulePosts) => post.status !== "Ожидание"
-  // );
+  const posted = scheduledPosts?.filter(
+    (post: TSchedulePosts) => post.status !== "Ожидание"
+  );
 
   const awaitingPosts = scheduledPosts?.filter(
-    (post: TSchedulePosts) => post.status !== "Опубликовано"
+    (post: TSchedulePosts) => post.status !== "В процессе"
   );
   const dispatch = useDispatch();
 
@@ -87,7 +87,27 @@ const ScheduledPosts = ({ scheduledPosts }: IScheduledPostsProps) => {
           })}
         </div>
       ) : tab === "published" ? (
-        <Published />
+        <div className="schedule-posts__container">
+          {posted?.map((post: TSchedulePosts) => {
+            const { account, id, image, publish_at, status, text } = post;
+            return (
+              <Published
+                account={account}
+                id={id}
+                key={id}
+                image={image}
+                publish_at={publish_at}
+                status={status}
+                text={text}
+                handleDeletePost={handleDeletePost}
+                loading={loading}
+                isDeletePopupOpen={isDeletePopupOpen}
+                deletePostPopupClose={deletePostPopupClose}
+                handleSetId={handleSetId}
+              />
+            );
+          })}
+        </div>
       ) : (
         <></>
       )}

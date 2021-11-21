@@ -25,10 +25,11 @@ const NewPost = ({ togglePopupClose }: any) => {
     togglePopupClose: closeDatePopup,
   }: any = usePopup();
 
-  const { loading, errors } = useSelector(
+  const { loading, errors, scheduledSuccess } = useSelector(
     ({ schedule }: RootState) => ({
       loading: schedule.loading,
       errors: schedule.errors,
+      scheduledSuccess: schedule.scheduledSuccess,
     }),
     shallowEqual
   );
@@ -71,23 +72,24 @@ const NewPost = ({ togglePopupClose }: any) => {
     });
     closeDatePopup();
   };
-  const saveCreatedSchedule = useCallback(() => {
+
+  const postCreatedSchedule = useCallback(() => {
     dispatch(postSchedule(scheduleData));
-    // if (errors?.length === 0) {
-    //   togglePopupClose();
-    // }
-  }, [dispatch, scheduleData]);
+    if (scheduledSuccess) {
+      togglePopupClose();
+    }
+  }, [dispatch, scheduleData, scheduledSuccess, togglePopupClose]);
 
   const handleImageSelect = async (e: ChangeEvent<HTMLInputElement> | any) => {
     const image = e.target.files[0];
     setCurrentImage(image);
-    const base64 = (await convertBase64(image)) as any;
-    const convertToBase64 = base64?.replace("data:image/jpeg;base64,", "");
+    const convertToBase64 = (await convertBase64(image)) as any;
     setScheduleData({
       ...scheduleData,
       image: {
         name: image.name,
         content: convertToBase64,
+        extended: true,
       },
     });
   };
@@ -119,11 +121,11 @@ const NewPost = ({ togglePopupClose }: any) => {
           />
         </div>
       </div>
-      {errors.length !== 0 ? (
-        errors.map((error: TScheduleError) => {
+      {errors?.length !== 0 ? (
+        errors?.map((error: TScheduleError) => {
           return (
             <div className="new-post--errors">
-              <Text text={error.message} />;
+              <Text text={error?.message} />;
             </div>
           );
         })
@@ -171,7 +173,7 @@ const NewPost = ({ togglePopupClose }: any) => {
         </div>
         <div className="new-post__date__buttons">
           <Button
-            onClick={saveCreatedSchedule}
+            onClick={postCreatedSchedule}
             buttonText={
               loading ? (
                 <SpinnerCircular

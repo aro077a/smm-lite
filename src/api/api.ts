@@ -5,6 +5,7 @@ import {
   INSTAGRAMLOGIN,
   LOGOUT,
   POSTSCHEDULE,
+  PUBLISHSCHEDULE,
   SIGNIN,
   SIGNUP,
 } from "../utils/constants";
@@ -50,10 +51,19 @@ export const postInstagramSchedule = async (body: any) => {
   return await axios.post(`${BASEAPI}${POSTSCHEDULE}?token=${config()}`, body);
 };
 
-//publish schedule post
-export const publishInstagramSchedule = async (id: number, body: any) => {
+// update schedule post
+
+export const updateInstagramSchedule = async (id: number, body: any) => {
   return await axios.post(
     `${BASEAPI}${POSTSCHEDULE}/${id}?token=${config()}`,
+    body
+  );
+};
+
+//publish schedule post
+export const publishInstagramSchedule = async (id: number, body: any) => {
+  return await axios.patch(
+    `${BASEAPI}${PUBLISHSCHEDULE}/${id}?token=${config()}`,
     body
   );
 };

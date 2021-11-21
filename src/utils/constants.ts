@@ -5,6 +5,7 @@ export const SIGNUP = "/register";
 export const SIGNIN = "/login";
 export const LOGOUT = "/logout";
 export const POSTSCHEDULE = "post";
+export const PUBLISHSCHEDULE = "post/publish";
 export const INSTAGRAMLOGIN = "account";
 export const GETACCOUNT = "account";
 

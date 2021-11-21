@@ -1,0 +1,111 @@
+.published {
+  display: flex;
+  justify-content: space-between;
+  background-color: $primaryWhite;
+  box-shadow: 0px 0px 2px rgba(40, 41, 61, 0.04),
+    0px 4px 8px rgba(96, 97, 112, 0.16);
+  border-radius: 1.6rem;
+  padding: 3.2rem;
+  &--image {
+    width: 44rem;
+    height: 44rem;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border: 1px solid #c7c9d9;
+      border-radius: 0.8rem;
+    }
+  }
+  &__text {
+    max-width: 51rem;
+    width: 51rem;
+    height: 44rem;
+    overflow-y: auto;
+    margin-left: 2.4rem;
+    padding-right: 1.2rem;
+    span {
+      font-weight: bold;
+      color: $primaryDark;
+      font-size: 1.6rem;
+    }
+    p {
+      display: inline;
+      @include text($primaryDark, 1.6rem);
+    }
+  }
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 3.5rem;
+    &__date {
+      &__block {
+        display: flex;
+        gap: 1rem;
+
+        &--name {
+          @include text($primaryDark, 1.8rem);
+        }
+        font-weight: bold;
+      }
+      &--time {
+        margin-top: 1.2rem;
+        display: flex;
+        gap: 0.7rem;
+        p {
+          @include text($primaryDark, 1.6rem);
+        }
+        img {
+          cursor: pointer;
+        }
+      }
+    }
+    &__buttons {
+      display: flex;
+      align-items: flex-end;
+      gap: 1.3rem;
+      .button {
+        width: 22rem;
+        padding: 1.6rem;
+        @include button($primaryWhite, 1.6rem, $primaryGreen);
+      }
+      div {
+        width: 100%;
+        height: 5.2rem;
+        padding: 0 2.6rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.8rem;
+        background-color: $secondaryGray;
+        cursor: pointer;
+        p {
+          @include text($primaryWhite, 1.6rem);
+        }
+      }
+    }
+  }
+  ::-webkit-scrollbar {
+    border-radius: 20px;
+    width: 0.6rem;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: $secondaryLight;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #dedede;
+  }
+
+  &__removePost-popup {
+    .popup {
+      .popup__content {
+        max-width: 51rem;
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+}

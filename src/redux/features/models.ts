@@ -15,6 +15,7 @@ export interface IUSer {
 export interface ISchedule {
   scheduledPosts: TSchedule[];
   loading: boolean;
+  scheduledSuccess: boolean;
   errors: any;
 }
 

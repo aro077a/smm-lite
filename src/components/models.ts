@@ -73,6 +73,21 @@ export type TSchedulePosts = {
   deletePostPopupClose?: () => void;
   handleSetId?: any;
 };
+
+export type TPublished = {
+  account?: string;
+  id?: number | any;
+  image?: string | File | any;
+  publish_at?: string;
+  status?: string;
+  text?: string;
+  loading?: boolean;
+  handleDeletePost?: any;
+  isDeletePopupOpen?: boolean;
+  deletePostPopupClose?: () => void;
+  handleSetId?: any;
+};
+
 export type IRemovePostPopupProps = {
   deletePostPopupClose?: any;
   handleDeletePost?: any;

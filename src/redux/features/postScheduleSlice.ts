@@ -10,6 +10,7 @@ const initialState: ISchedule = {
   scheduledPosts: [],
   loading: false,
   errors: [],
+  scheduledSuccess: false,
 };
 
 export const postSchedule = createAsyncThunk<
@@ -21,6 +22,7 @@ export const postSchedule = createAsyncThunk<
     const response = await postInstagramSchedule(schedule);
     if (response.status === 200) {
       thunkAPI.dispatch(getSchedule());
+      return response.data.result;
     }
   } catch (error: any) {
     if (!error.response) {
@@ -73,8 +75,9 @@ export const scheduleSlice = createSlice({
     builder.addCase(postSchedule.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(postSchedule.fulfilled, (state) => {
+    builder.addCase(postSchedule.fulfilled, (state, { payload }) => {
       state.loading = false;
+      state.scheduledSuccess = payload;
     });
     builder.addCase(postSchedule.rejected, (state, { payload }) => {
       state.loading = false;

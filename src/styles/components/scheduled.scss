@@ -51,6 +51,9 @@
         p {
           @include text($primaryDark, 1.6rem);
         }
+        img {
+          cursor: pointer;
+        }
       }
     }
     &__buttons {
