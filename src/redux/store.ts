@@ -3,7 +3,9 @@ import logger from "redux-logger";
 import authSlice from "./features/authSlice";
 import getAccountSlice from "./features/getAccountSlice";
 import instagramAuthSlice from "./features/instagramAuthSlice";
+import popupSlice from "./features/popupSlice";
 import postScheduleSlice from "./features/postScheduleSlice";
+import publishScheduleSlice from "./features/publishScheduleSlice";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +13,8 @@ export const store = configureStore({
     auth: authSlice,
     instagramAuth: instagramAuthSlice,
     schedule: postScheduleSlice,
+    publish: publishScheduleSlice,
+    popup: popupSlice,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });

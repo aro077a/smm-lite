@@ -10,3 +10,10 @@ export const convertBase64 = (file: any) => {
     };
   });
 };
+
+export const checkConnection = () => {
+  const connection = navigator.onLine;
+  if (connection) {
+    return true;
+  }
+};

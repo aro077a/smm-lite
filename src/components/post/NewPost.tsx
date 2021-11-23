@@ -5,8 +5,6 @@ import UploadImage from "./UploadImage";
 import ScheduleText from "./ScheduleText";
 import Button from "../ui/Button";
 import editIcon from "../../assets/icons/edit-icon.svg";
-import { ru } from "date-fns/locale";
-import { format } from "date-fns";
 import usePopup from "../../hooks/usePopup";
 import Popup from "../ui/Popup";
 import Calendar from "react-calendar";
@@ -15,8 +13,10 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { postSchedule } from "../../redux/features/postScheduleSlice";
 import { SpinnerCircular } from "spinners-react";
 import { RootState } from "../../redux/store";
-import { TScheduleError } from "../../redux/features/models";
 import { convertBase64 } from "../../utils/helpers";
+import moment from "moment";
+import "moment/locale/ru.js";
+import { TScheduleError } from "../../redux/features/models";
 
 const NewPost = ({ togglePopupClose }: any) => {
   const {
@@ -29,7 +29,6 @@ const NewPost = ({ togglePopupClose }: any) => {
     ({ schedule }: RootState) => ({
       loading: schedule.loading,
       errors: schedule.errors,
-      scheduledSuccess: schedule.scheduledSuccess,
     }),
     shallowEqual
   );
@@ -52,9 +51,15 @@ const NewPost = ({ togglePopupClose }: any) => {
 
   const dispatch = useDispatch();
 
-  const handleDateChange = (date: Date) => {
+  moment.locale("ru");
+
+  const handleDateChange = (date: any) => {
     setCurrentDate(date);
   };
+
+  const formattedDate = `${moment(currentDate).format("LL").split(" ")[0]} ${
+    moment(currentDate).format("LL").split(" ")[1]
+  }`;
 
   const handleTimeChange = (e: ChangeEvent<HTMLInputElement>, time: string) => {
     setCurrentTime(time);
@@ -68,15 +73,14 @@ const NewPost = ({ togglePopupClose }: any) => {
     });
     setScheduleData({
       ...scheduleData,
-      publish_at: `${format(currentDate, "yyyy-MM-dd")} ${currentTime}`,
+      publish_at: `${moment(currentDate).format("YYYY-M-D")} ${currentTime}`,
     });
     closeDatePopup();
   };
 
   const postCreatedSchedule = useCallback(() => {
     dispatch(postSchedule(scheduleData));
-    togglePopupClose();
-  }, [dispatch, scheduleData, togglePopupClose]);
+  }, [dispatch, scheduleData]);
 
   const handleImageSelect = async (e: ChangeEvent<HTMLInputElement> | any) => {
     const image = e.target.files[0];
@@ -98,7 +102,7 @@ const NewPost = ({ togglePopupClose }: any) => {
     setScheduleData({ ...scheduleData, text: postText });
   };
 
-  const { date, time } = postDate;
+  const { time } = postDate;
   return (
     <div className="new-post">
       <div className="new-post__title-block">
@@ -119,16 +123,14 @@ const NewPost = ({ togglePopupClose }: any) => {
           />
         </div>
       </div>
-      {errors?.length !== 0 ? (
-        errors?.map((error: TScheduleError) => {
-          return (
-            <div className="new-post--errors">
-              <Text text={error?.message} />;
-            </div>
-          );
-        })
-      ) : (
+      {errors?.length === 0 ? (
         <></>
+      ) : (
+        errors?.map((error: TScheduleError) => (
+          <div className="new-post--errors" key={error?.message}>
+            <Text text={error?.message} />;
+          </div>
+        ))
       )}
       <div className="new-post__date">
         <div className="new-post__date__content">
@@ -144,9 +146,7 @@ const NewPost = ({ togglePopupClose }: any) => {
             className="new-post__date__content--time"
             onClick={openDatePopup}
           >
-            <Text
-              text={`${format(date, "dd LLLL", { locale: ru })} в ${time}`}
-            />
+            <Text text={`${formattedDate} в ${time}`} />
             <img src={editIcon} alt="edit" onClick={openDatePopup} />
           </div>
           <div className="new-post__date__content__calendar">

@@ -6,13 +6,11 @@ import Button from "../../components/ui/Button";
 import Popup from "../../components/ui/Popup";
 import Text from "../../components/ui/Text";
 import Title from "../../components/ui/Title";
-import usePopup from "../../hooks/usePopup";
+import { togglePopup } from "../../redux/features/popupSlice";
 import { getSchedule } from "../../redux/features/postScheduleSlice";
 import { RootState } from "../../redux/store";
 
 const Home = () => {
-  const { isOpen, togglePopupClose, togglePopupOpen } = usePopup();
-
   const dispatch = useDispatch();
 
   const { account } = useSelector(
@@ -29,9 +27,24 @@ const Home = () => {
     shallowEqual
   );
 
+  const { modalType, modalIsOpen } = useSelector(
+    ({ popup }: RootState) => ({
+      modalType: popup.modalType,
+      modalIsOpen: popup.modalIsOpen,
+    }),
+    shallowEqual
+  );
+
   useEffect(() => {
     dispatch(getSchedule());
   }, [dispatch]);
+
+  const handleOpenPopup = () => {
+    dispatch(togglePopup({ modalIsOpen: true, modalType: "post" }));
+  };
+  const handleClosePopup = () => {
+    dispatch(togglePopup({ modalIsOpen: false, modalType: "post" }));
+  };
 
   return (
     <div className="home">
@@ -41,7 +54,7 @@ const Home = () => {
             <div className="home__title-block--buttons">
               <Button
                 buttonText="Запланировать пост"
-                onClick={togglePopupOpen}
+                onClick={handleOpenPopup}
               />
               <Button buttonText="Удалить все" />
             </div>
@@ -59,15 +72,15 @@ const Home = () => {
             />
             <Button
               buttonText="Запланировать пост"
-              onClick={togglePopupOpen}
+              onClick={handleOpenPopup}
               buttonType={account && account[0]?.username ? false : true}
             />
           </>
         )}
       </div>
-      {isOpen && (
-        <Popup togglePopupClose={togglePopupClose}>
-          <NewPost togglePopupClose={togglePopupClose} />
+      {modalIsOpen && modalType === "post" && (
+        <Popup togglePopupClose={handleClosePopup}>
+          <NewPost togglePopupClose={handleClosePopup} />
         </Popup>
       )}
     </div>

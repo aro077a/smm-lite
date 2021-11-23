@@ -3,20 +3,14 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { deleteSchedule } from "../../redux/features/postScheduleSlice";
 import { RootState } from "../../redux/store";
 import { IScheduledPostsProps, TSchedulePosts } from "../models";
-import usePopup from "../../hooks/usePopup";
 import Title from "../ui/Title";
 import Published from "./Published";
 import Scheduled from "./Scheduled";
+import { togglePopup } from "../../redux/features/popupSlice";
 
 const ScheduledPosts = ({ scheduledPosts }: IScheduledPostsProps) => {
   const [tab, setTab] = useState("scheduled");
   const [popupId, setPopupId] = useState<number>();
-
-  const {
-    isOpen: isDeletePopupOpen,
-    togglePopupClose: deletePostPopupClose,
-    togglePopupOpen: openDeletePopup,
-  } = usePopup();
 
   const { loading } = useSelector(
     ({ schedule }: RootState) => ({
@@ -25,7 +19,17 @@ const ScheduledPosts = ({ scheduledPosts }: IScheduledPostsProps) => {
     shallowEqual
   );
 
-  //when API changes will be ready
+  const { modalType, modalIsOpen } = useSelector(
+    ({ popup }: RootState) => ({
+      modalType: popup.modalType,
+      modalIsOpen: popup.modalIsOpen,
+    }),
+    shallowEqual
+  );
+
+  const handleCloseDeletePopup = () => {
+    dispatch(togglePopup({ modalIsOpen: false, modalType: "delete" }));
+  };
 
   const posted = scheduledPosts?.filter(
     (post: TSchedulePosts) => post.status !== "Ожидание"
@@ -38,16 +42,14 @@ const ScheduledPosts = ({ scheduledPosts }: IScheduledPostsProps) => {
 
   const handleSetId = (id: number) => {
     setPopupId(id);
-    openDeletePopup();
+    dispatch(togglePopup({ modalIsOpen: true, modalType: "delete" }));
   };
 
   const handleDeletePost = () => {
     const deletedId = scheduledPosts?.find(
       (post: TSchedulePosts) => post.id === popupId
     );
-    console.log(deletedId);
     dispatch(deleteSchedule(deletedId?.id));
-    deletePostPopupClose();
   };
 
   return (
@@ -77,10 +79,11 @@ const ScheduledPosts = ({ scheduledPosts }: IScheduledPostsProps) => {
                 publish_at={publish_at}
                 status={status}
                 text={text}
+                scheduledModalType={modalType}
                 handleDeletePost={handleDeletePost}
-                loading={loading}
-                isDeletePopupOpen={isDeletePopupOpen}
-                deletePostPopupClose={deletePostPopupClose}
+                scheduledLoading={loading}
+                isDeletePopupOpen={modalIsOpen}
+                deletePostPopupClose={handleCloseDeletePopup}
                 handleSetId={handleSetId}
               />
             );
@@ -99,10 +102,11 @@ const ScheduledPosts = ({ scheduledPosts }: IScheduledPostsProps) => {
                 publish_at={publish_at}
                 status={status}
                 text={text}
+                scheduledModalType={modalType}
                 handleDeletePost={handleDeletePost}
-                loading={loading}
-                isDeletePopupOpen={isDeletePopupOpen}
-                deletePostPopupClose={deletePostPopupClose}
+                publishedLoading={loading}
+                isDeletePopupOpen={modalIsOpen}
+                deletePostPopupClose={handleCloseDeletePopup}
                 handleSetId={handleSetId}
               />
             );

@@ -9,14 +9,15 @@ import Title from "../ui/Title";
 import Calendar from "react-calendar";
 import TimeField from "react-simple-timefield";
 import { ChangeEvent, useState } from "react";
-import { format, parseISO } from "date-fns";
-import { ru } from "date-fns/locale";
 import RemovePostPopup from "./RemovePostPopup";
-import { useDispatch } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import {
   publishSchedule,
   updateSchedule,
-} from "../../redux/features/publishSchedule";
+} from "../../redux/features/publishScheduleSlice";
+import { SpinnerCircular } from "spinners-react";
+import { RootState } from "../../redux/store";
+import moment from "moment";
 
 const Scheduled = ({
   account,
@@ -25,14 +26,22 @@ const Scheduled = ({
   publish_at,
   text,
   handleDeletePost,
-  loading,
+  scheduledLoading,
   isDeletePopupOpen,
   deletePostPopupClose,
   handleSetId,
+  scheduledModalType,
 }: TSchedulePosts) => {
   const { isOpen, togglePopupClose, togglePopupOpen } = usePopup();
 
   const dispatch = useDispatch();
+
+  const { loading } = useSelector(
+    ({ publish }: RootState) => ({
+      loading: publish.loading,
+    }),
+    shallowEqual
+  );
 
   const [editDate, setEditDate] = useState<any>({
     date: publish_at?.substr(0, publish_at.indexOf(" ")),
@@ -50,7 +59,7 @@ const Scheduled = ({
   };
 
   const handleDateChange = (selectedDate: any) => {
-    const formattedDate = format(selectedDate, "yyyy-MM-dd");
+    const formattedDate = moment(selectedDate).format("YYYY-M-D");
     setEditDate({ ...editDate, date: formattedDate });
     setEditedScheduleData({
       ...editedScheduleData,
@@ -68,29 +77,19 @@ const Scheduled = ({
 
   const { date, time } = editDate;
 
-  const parsedDate = parseISO(date);
+  const formattedDate = `${moment(date).format("LL").split(" ")[0]} ${
+    moment(date).format("LL").split(" ")[1]
+  }`;
 
-  //TODO: need to be changed to {ru} locale  correct month name
-
-  // let day = format(parseISO(date), "dd LLLL", {
-  //   locale: ru,
-  // }).split(" ")[0];
-
-  // let month = format(parseISO(date), "dd LLLL", {
-  //   locale: ru,
-  // }).split(" ")[1];
-
-  // if (month.slice(-1) === "ь") {
-  //   month = `${day} ${month.replace(/.$/, "я")}`;
-  // }
+  const parsedDate = moment(date).toDate();
 
   const publishCreatedSchedule = () => {
-    setEditedScheduleData({
-      ...editedScheduleData,
-      publish_at: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
-    });
+    const dateNow = moment(new Date()).format("YYYY-M-D HH:mm:ss");
+    setEditedScheduleData((prev: any) => ({
+      ...prev,
+      publish_at: dateNow,
+    }));
     dispatch(publishSchedule(id, editedScheduleData));
-    togglePopupClose();
   };
 
   return (
@@ -109,11 +108,7 @@ const Scheduled = ({
             className="scheduled__content__date--name"
           />
           <div className="scheduled__content__date--time">
-            <Text
-              text={`${format(parseISO(date), "dd LLLL", {
-                locale: ru,
-              })} в ${time}`}
-            />
+            <Text text={`${formattedDate} в ${time}`} />
             <img src={editIcon} alt="edit" onClick={togglePopupOpen} />
           </div>
         </div>
@@ -138,8 +133,21 @@ const Scheduled = ({
         </div>
         <div className="scheduled__content__buttons">
           <Button
-            buttonText="Опубликовать сейчас"
             onClick={publishCreatedSchedule}
+            buttonText={
+              loading ? (
+                <SpinnerCircular
+                  size={23}
+                  thickness={148}
+                  speed={137}
+                  color="rgba(255, 255, 255, 0.94)"
+                  secondaryColor="rgba(57, 172, 112, 0)"
+                />
+              ) : (
+                "Опубликовать сейчас"
+              )
+            }
+            loading={loading}
           />
           <div>
             <img src={trashIcon} alt="trash" onClick={() => handleSetId(id)} />
@@ -147,12 +155,12 @@ const Scheduled = ({
         </div>
       </div>
       <div className="scheduled__removePost-popup">
-        {isDeletePopupOpen && (
+        {isDeletePopupOpen && scheduledModalType === "delete" && (
           <Popup togglePopupClose={deletePostPopupClose}>
             <RemovePostPopup
               deletePostPopupClose={deletePostPopupClose}
               handleDeletePost={handleDeletePost}
-              loading={loading}
+              loading={scheduledLoading}
             />
           </Popup>
         )}

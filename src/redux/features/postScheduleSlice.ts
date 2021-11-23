@@ -5,12 +5,12 @@ import {
   getInstagramSchedule,
   postInstagramSchedule,
 } from "../../api/api";
+import { togglePopup } from "./popupSlice";
 
 const initialState: ISchedule = {
   scheduledPosts: [],
   loading: false,
   errors: [],
-  scheduledSuccess: false,
 };
 
 export const postSchedule = createAsyncThunk<
@@ -20,8 +20,11 @@ export const postSchedule = createAsyncThunk<
 >("schedule/postSchedule", async (schedule, thunkAPI) => {
   try {
     const response = await postInstagramSchedule(schedule);
+
     if (response.status === 200) {
       thunkAPI.dispatch(getSchedule());
+      thunkAPI.dispatch(togglePopup({ modalIsOpen: false, name: "post" }));
+
       return response.data.result;
     }
   } catch (error: any) {
@@ -57,6 +60,8 @@ export const deleteSchedule = createAsyncThunk<
     const response = await deleteInstagramSchedule(userId);
     if (response.status === 200) {
       thunkAPI.dispatch(getSchedule());
+      thunkAPI.dispatch(togglePopup({ modalIsOpen: false, name: "delete" }));
+      return response.data.result;
     }
   } catch (error: any) {
     if (!error.response) {
@@ -75,13 +80,13 @@ export const scheduleSlice = createSlice({
     builder.addCase(postSchedule.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(postSchedule.fulfilled, (state, { payload }) => {
+    builder.addCase(postSchedule.fulfilled, (state) => {
       state.loading = false;
-      state.scheduledSuccess = payload;
+      state.errors = [];
     });
     builder.addCase(postSchedule.rejected, (state, { payload }) => {
       state.loading = false;
-      state.errors = payload || [];
+      state.errors = payload;
     });
 
     builder.addCase(getSchedule.pending, (state) => {

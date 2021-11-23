@@ -18,7 +18,7 @@ export interface IButtonProps {
   buttonType?: boolean;
   loading?: boolean;
   type?: string | any;
-  onClick?: () => void;
+  onClick?: any;
 }
 
 export interface IInputProps {
@@ -42,8 +42,8 @@ export interface IconProps {
 export interface IPopupProps {
   children?: ReactNode;
   className?: string;
-  isOpen?: boolean;
-  togglePopupClose?: () => void;
+  popupIsOpen?: boolean;
+  togglePopupClose?: any;
   togglePopupBlur?: () => void;
   togglePopupOpen?: () => void;
 }
@@ -67,11 +67,12 @@ export type TSchedulePosts = {
   publish_at?: string;
   status?: string;
   text?: string;
-  loading?: boolean;
+  scheduledLoading?: boolean;
   handleDeletePost?: any;
-  isDeletePopupOpen?: boolean;
-  deletePostPopupClose?: () => void;
+  isDeletePopupOpen?: any;
+  deletePostPopupClose?: any;
   handleSetId?: any;
+  scheduledModalType?: string;
 };
 
 export type TPublished = {
@@ -81,11 +82,12 @@ export type TPublished = {
   publish_at?: string;
   status?: string;
   text?: string;
-  loading?: boolean;
+  publishedLoading?: boolean;
   handleDeletePost?: any;
   isDeletePopupOpen?: boolean;
   deletePostPopupClose?: () => void;
   handleSetId?: any;
+  scheduledModalType?: string;
 };
 
 export type IRemovePostPopupProps = {

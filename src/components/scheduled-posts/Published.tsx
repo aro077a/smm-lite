@@ -1,9 +1,10 @@
-import { TSchedulePosts } from "../models";
+import { TPublished } from "../models";
 import Text from "../ui/Text";
 import doneIcon from "../../assets/icons/done.svg";
 import trashIcon from "../../assets/icons/trash-icon.svg";
 import Popup from "../ui/Popup";
 import RemovePostPopup from "./RemovePostPopup";
+import moment from "moment";
 
 const Published = ({
   account,
@@ -12,11 +13,19 @@ const Published = ({
   publish_at,
   text,
   handleDeletePost,
-  loading,
+  publishedLoading,
   isDeletePopupOpen,
   deletePostPopupClose,
   handleSetId,
-}: TSchedulePosts) => {
+  scheduledModalType,
+}: TPublished) => {
+  let date = publish_at?.substr(0, publish_at.indexOf(" "));
+  date = `${moment(date).format("LL").split(" ")[0]} ${
+    moment(date).format("LL").split(" ")[1]
+  }`;
+
+  const time = publish_at?.split(" ")[1].slice(0, 5);
+
   return (
     <div className="published">
       <div className="published--image">
@@ -36,7 +45,7 @@ const Published = ({
             <img src={doneIcon} alt="done" />
           </div>
           <div className="published__content__date--time">
-            <Text text={publish_at} />
+            <Text text={`${date} в ${time}`} />
           </div>
         </div>
         <div className="published__content__buttons">
@@ -47,12 +56,12 @@ const Published = ({
         </div>
       </div>
       <div className="published__removePost-popup">
-        {isDeletePopupOpen && (
+        {isDeletePopupOpen && scheduledModalType === "delete" && (
           <Popup togglePopupClose={deletePostPopupClose}>
             <RemovePostPopup
               deletePostPopupClose={deletePostPopupClose}
               handleDeletePost={handleDeletePost}
-              loading={loading}
+              loading={publishedLoading}
             />
           </Popup>
         )}

@@ -61,12 +61,23 @@
       align-items: flex-end;
       gap: 1.3rem;
       .button {
-        width: 22rem;
+        width: 100%;
+        min-width: 22rem;
         padding: 1.6rem;
         @include button($primaryWhite, 1.6rem, $primaryGreen);
       }
+
+      .button-loading {
+        width: 100%;
+        min-width: 22rem;
+        padding: 0 9rem;
+        max-height: 5.2rem;
+        @include button($primaryWhite, 1.6rem, $primaryGreen);
+      }
+
       div {
         width: 5.2rem;
+        min-width: 5.2rem;
         height: 5.2rem;
         display: flex;
         align-items: center;
@@ -103,6 +114,7 @@
         max-width: 51rem;
         display: flex;
         justify-content: center;
+        top: 12rem;
       }
     }
   }

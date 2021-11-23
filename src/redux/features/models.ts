@@ -8,6 +8,10 @@ export interface IInstagramAuthState {
   success: boolean;
   instaAuthError: string | any;
 }
+export interface IPublishSchedule {
+  loading: boolean;
+  error?: any;
+}
 export interface IUSer {
   account: TUserAccount[];
   loading: boolean;
@@ -15,7 +19,6 @@ export interface IUSer {
 export interface ISchedule {
   scheduledPosts: TSchedule[];
   loading: boolean;
-  scheduledSuccess: boolean;
   errors: any;
 }
 
