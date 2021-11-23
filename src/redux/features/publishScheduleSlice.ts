@@ -47,7 +47,7 @@ export const updateSchedule = (id: number, schedule: any): AppThunk => {
   return async (dispatch) => {
     dispatch(setLoading(true));
     try {
-      const res = await updateInstagramSchedule(id, schedule);
+      await updateInstagramSchedule(id, schedule);
       dispatch(setLoading(false));
       dispatch(getSchedule());
     } catch (error: any) {
