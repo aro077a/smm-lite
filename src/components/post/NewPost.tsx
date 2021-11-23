@@ -169,6 +169,14 @@ const NewPost = ({ togglePopupClose }: any) => {
             )}
           </div>
         </div>
+        {!navigator.onLine ? (
+          <Text
+            text="Нет подключения к интернету"
+            className="new-post__date--offline"
+          />
+        ) : (
+          <></>
+        )}
         <div className="new-post__date__buttons">
           <Button
             onClick={postCreatedSchedule}
