@@ -59,6 +59,12 @@ export interface IUploadImageProps {
 export interface IScheduledPostsProps {
   scheduledPosts?: TSchedulePosts[];
 }
+export interface InstagramAuthContainerProps {
+  togglePopupClose?: () => void;
+}
+export interface InstagramAuthFormProps {
+  togglePopupClose?: () => void;
+}
 
 export type TSchedulePosts = {
   account?: string;

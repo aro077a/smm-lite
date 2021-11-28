@@ -85,11 +85,10 @@ const Scheduled = ({
 
   const publishCreatedSchedule = () => {
     const dateNow = moment(new Date()).format("YYYY-M-D HH:mm:ss");
-    setEditedScheduleData((prev: any) => ({
-      ...prev,
-      publish_at: dateNow,
-    }));
-    dispatch(publishSchedule(id, editedScheduleData));
+
+    dispatch(
+      publishSchedule(id, { ...editedScheduleData, publish_at: dateNow })
+    );
   };
 
   return (

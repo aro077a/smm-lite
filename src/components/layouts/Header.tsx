@@ -96,7 +96,7 @@ const Header = () => {
       <img src={headerRight} alt="header-left" className="header--right-icon" />
       {!success && isOpen && (
         <Popup togglePopupClose={togglePopupClose}>
-          <InstagramAuthContainer />
+          <InstagramAuthContainer togglePopupClose={togglePopupClose} />
         </Popup>
       )}
     </header>

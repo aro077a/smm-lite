@@ -8,12 +8,13 @@ import { RootState } from "../../redux/store";
 import { InstagramSchema } from "../../utils/validationSchema";
 import EyeIcon from "../icon-components/EyeIcon";
 import EyeHideIcon from "../icon-components/EyeIconHide";
+import { InstagramAuthFormProps } from "../models";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 import Text from "../ui/Text";
 import Title from "../ui/Title";
 
-const InstagramAuthForm = () => {
+const InstagramAuthForm = ({ togglePopupClose }: InstagramAuthFormProps) => {
   const { isPassActive, toggleActive } = usePasswordActive();
 
   const dispatch = useDispatch();
@@ -50,7 +51,7 @@ const InstagramAuthForm = () => {
           <Form className="instaAuthForm__form-block">
             <Input
               htmlFor="username"
-              label="Email"
+              label="Логин"
               type="username"
               name="username"
               value={values.username}
@@ -94,7 +95,7 @@ const InstagramAuthForm = () => {
                 loading={loading}
                 buttonType={!(dirty && isValid)}
               />
-              <Button buttonText="Отмена" />
+              <Button buttonText="Отмена" onClick={togglePopupClose} />
             </div>
           </Form>
         )}

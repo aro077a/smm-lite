@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { InstagramAuthContainerProps } from "../models";
 import InstagramAPI from "./InstagramAPI";
 import InstagramAuth from "./InstagramAuth";
 import InstagramAuthForm from "./InstagramAuthForm";
 
-const InstagramAuthContainer = () => {
+const InstagramAuthContainer = ({
+  togglePopupClose,
+}: InstagramAuthContainerProps) => {
   const [authType, setAuthType] = useState("withCredentials");
 
   const handleOpenForm = () => {
@@ -23,7 +26,7 @@ const InstagramAuthContainer = () => {
       ) : authType === "apiAuth" ? (
         <InstagramAPI />
       ) : (
-        <InstagramAuthForm />
+        <InstagramAuthForm togglePopupClose={togglePopupClose} />
       )}
     </div>
   );
