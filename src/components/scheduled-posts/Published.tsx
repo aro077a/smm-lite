@@ -10,7 +10,7 @@ const Published = ({
   account,
   id,
   image,
-  publish_at,
+  updated_at,
   text,
   handleDeletePost,
   publishedLoading,
@@ -19,12 +19,11 @@ const Published = ({
   handleSetId,
   scheduledModalType,
 }: TPublished) => {
-  let date = publish_at?.substr(0, publish_at.indexOf(" "));
-  date = `${moment(date).format("LL").split(" ")[0]} ${
-    moment(date).format("LL").split(" ")[1]
-  }`;
+  let date = moment(moment.utc(updated_at).toDate())
+    .format("LL")
+    .substr(0, updated_at?.indexOf(" "));
 
-  const time = publish_at?.split(" ")[1].slice(0, 5);
+  const time = moment(moment.utc(updated_at).toDate()).format("HH:mm");
 
   return (
     <div className="published">

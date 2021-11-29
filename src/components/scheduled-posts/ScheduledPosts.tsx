@@ -2,7 +2,7 @@ import { useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { deleteSchedule } from "../../redux/features/postScheduleSlice";
 import { RootState } from "../../redux/store";
-import { IScheduledPostsProps, TSchedulePosts } from "../models";
+import { IScheduledPostsProps, TPublished, TSchedulePosts } from "../models";
 import Title from "../ui/Title";
 import Published from "./Published";
 import Scheduled from "./Scheduled";
@@ -91,15 +91,15 @@ const ScheduledPosts = ({ scheduledPosts }: IScheduledPostsProps) => {
         </div>
       ) : tab === "published" ? (
         <div className="schedule-posts__container">
-          {posted?.map((post: TSchedulePosts) => {
-            const { account, id, image, publish_at, status, text } = post;
+          {posted?.map((post: TPublished) => {
+            const { account, id, image, updated_at, status, text } = post;
             return (
               <Published
                 account={account}
                 id={id}
                 key={id}
                 image={image}
-                publish_at={publish_at}
+                updated_at={updated_at}
                 status={status}
                 text={text}
                 scheduledModalType={modalType}

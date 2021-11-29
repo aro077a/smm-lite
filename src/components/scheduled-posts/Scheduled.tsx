@@ -84,11 +84,7 @@ const Scheduled = ({
   const parsedDate = moment(date).toDate();
 
   const publishCreatedSchedule = () => {
-    const dateNow = moment(new Date()).format("YYYY-M-D HH:mm:ss");
-
-    dispatch(
-      publishSchedule(id, { ...editedScheduleData, publish_at: dateNow })
-    );
+    dispatch(publishSchedule(id));
   };
 
   return (

@@ -61,10 +61,9 @@ export const updateInstagramSchedule = async (id: number, body: any) => {
 };
 
 //publish schedule post
-export const publishInstagramSchedule = async (id: number, body: any) => {
+export const publishInstagramSchedule = async (id: number) => {
   return await axios.patch(
-    `${BASEAPI}${PUBLISHSCHEDULE}/${id}?token=${config()}`,
-    body
+    `${BASEAPI}${PUBLISHSCHEDULE}/${id}?token=${config()}`
   );
 };
 

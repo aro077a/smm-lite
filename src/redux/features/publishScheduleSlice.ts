@@ -29,11 +29,11 @@ const publishScheduleSlice = createSlice({
   },
 });
 
-export const publishSchedule = (id: number, schedule: any): AppThunk => {
+export const publishSchedule = (id: number): AppThunk => {
   return async (dispatch) => {
     dispatch(setLoading(true));
     try {
-      await publishInstagramSchedule(id, schedule);
+      await publishInstagramSchedule(id);
       dispatch(setLoading(false));
       dispatch(getSchedule());
     } catch (error: any) {

@@ -85,7 +85,7 @@ export type TPublished = {
   account?: string;
   id?: number | any;
   image?: string | File | any;
-  publish_at?: string;
+  updated_at?: string;
   status?: string;
   text?: string;
   publishedLoading?: boolean;
