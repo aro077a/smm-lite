@@ -22,7 +22,7 @@ const SignIn = () => {
   const { isPassActive, toggleActive } = usePasswordActive();
   const dispatch = useDispatch();
 
-  const { signInError, loading } = useSelector(
+  const { loading } = useSelector(
     ({ auth }: RootState) => ({
       signInError: auth.signInError,
       loading: auth.loading,

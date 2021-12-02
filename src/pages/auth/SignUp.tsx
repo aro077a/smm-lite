@@ -20,7 +20,7 @@ import { SignupSchema } from "../../utils/validationSchema";
 
 const SignUp = () => {
   const { isPassActive, toggleActive } = usePasswordActive();
-  const { signUpError, loading } = useSelector(
+  const { loading } = useSelector(
     ({ auth }: RootState) => ({
       signUpError: auth.signUpError,
       loading: auth.loading,
