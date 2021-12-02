@@ -70,9 +70,9 @@ const SignUp = () => {
                 name="email"
                 value={values.email}
                 onChange={handleChange}
-                errorsMessage={
-                  (errors.email && errors.email) || signUpError[0]?.message
-                }
+                // errorsMessage={
+                //   (errors.email && errors.email) || signUpError[0]?.message
+                // }
               />
               <Input
                 htmlFor="Пароль"
@@ -91,7 +91,7 @@ const SignUp = () => {
                   )
                 }
                 onChange={handleChange}
-                errorsMessage={errors.password && errors.password}
+                // errorsMessage={errors.password && errors.password}
               />
 
               <div className="signUp__description">

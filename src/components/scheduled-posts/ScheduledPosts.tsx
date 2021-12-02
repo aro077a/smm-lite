@@ -32,11 +32,15 @@ const ScheduledPosts = ({ scheduledPosts }: IScheduledPostsProps) => {
   };
 
   const posted = scheduledPosts?.filter(
-    (post: TSchedulePosts) => post.status !== "Ожидание"
+    (post: TSchedulePosts) => post.status === "Опубликовано"
+  );
+  console.log(
+    "🚀 ~ file: ScheduledPosts.tsx ~ line 37 ~ ScheduledPosts ~ posted",
+    posted
   );
 
   const awaitingPosts = scheduledPosts?.filter(
-    (post: TSchedulePosts) => post.status !== "В процессе"
+    (post: TSchedulePosts) => post.status === "Ожидание"
   );
   const dispatch = useDispatch();
 

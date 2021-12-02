@@ -39,8 +39,8 @@ const Header = () => {
   }, [dispatch]);
 
   const handleLogout = () => {
-    const token = localStorage.getItem("token") as any;
-    dispatch(logout(token));
+    // const token = localStorage.getItem("token") as any;
+    dispatch(logout());
   };
   return (
     <header className="header">

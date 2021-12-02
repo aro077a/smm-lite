@@ -15,15 +15,23 @@ const BASEAPI = process.env.REACT_APP_BASEURL;
 export const config = () => {
   return localStorage.getItem("token");
 };
+export const config1 = () => {
+  return {
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+};
 
 // User auth
 
 export const signUp = async (body: any) => {
-  return await axios.post(`${BASEAPI}${AUTH}${SIGNUP}`, body);
+  return await axios.post(`${BASEAPI}${AUTH}${SIGNUP}`, body, config1());
 };
 
 export const signIn = async (body: any) => {
-  return await axios.post(`${BASEAPI}${AUTH}${SIGNIN}`, body);
+  return await axios.post(`${BASEAPI}${AUTH}${SIGNIN}`, body, config1());
 };
 
 export const logoutUser = async () => {

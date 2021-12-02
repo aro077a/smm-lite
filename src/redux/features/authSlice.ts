@@ -52,21 +52,25 @@ export const login = createAsyncThunk<any, NewUser, { rejectValue: AuthError }>(
   }
 );
 
-export const logout = createAsyncThunk<
-  any,
-  TokenType,
-  { rejectValue: AuthError }
->("auth/logout", async (token) => {
-  try {
-    await logoutUser();
-    localStorage.removeItem("token");
-    history.push("/signin");
-  } catch (error: any) {
-    if (!error.response) {
-      throw error;
+export const logout = createAsyncThunk(
+  // <
+  //   any,
+  //   TokenType,
+  //   { rejectValue: AuthError }
+  // >
+  "auth/logout",
+  async () => {
+    try {
+      await logoutUser();
+      localStorage.removeItem("token");
+      history.push("/signin");
+    } catch (error: any) {
+      if (!error.response) {
+        throw error;
+      }
     }
   }
-});
+);
 
 // Then, handle actions in reducers:
 export const authSlice = createSlice({
